@@ -1,17 +1,15 @@
 package com.opapruebas.pruebastodoapi.data
 
-import androidx.lifecycle.LiveData
+
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface daoTarea {
 @Query("SELECT * FROM Tareas_table")
-suspend fun getTareas(): LiveData<List<Tarea>>
-
-@Query("SELECT * FROM Tareas_table WHERE id =:id")
-suspend fun gettarea(id:Int):Tarea?
+fun getTareas(): Flow<List<Tarea>>
 
 @Insert
 suspend fun addTarea(Tarea:Tarea)

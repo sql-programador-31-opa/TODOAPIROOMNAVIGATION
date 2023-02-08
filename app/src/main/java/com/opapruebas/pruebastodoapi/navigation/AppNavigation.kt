@@ -9,11 +9,12 @@ import com.opapruebas.pruebastodoapi.screens.addtodo
 import com.opapruebas.pruebastodoapi.screens.apimain
 import com.opapruebas.pruebastodoapi.screens.inicio
 import com.opapruebas.pruebastodoapi.screens.todo
+import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModelAbstract
 
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun AppNavigation(){
+fun AppNavigation(homeViewModel: TareaViewModelAbstract){
     val navigationController = rememberNavController()
         NavHost(navController = navigationController, startDestination = AppScreens.inicio.route){
         composable(route = AppScreens.inicio.route){
@@ -23,10 +24,10 @@ fun AppNavigation(){
             apimain(navigationController)
             }
         composable(route = AppScreens.todo.route){
-                todo(navigationController)
+                todo(navigationController,homeViewModel)
             }
         composable(route = AppScreens.addtodo.route){
-                addtodo(navigationController)
+                addtodo(navigationController,homeViewModel)
             }
 
         }

@@ -3,6 +3,7 @@ package com.opapruebas.pruebastodoapi
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,13 +19,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.opapruebas.pruebastodoapi.navigation.AppNavigation
 import com.opapruebas.pruebastodoapi.ui.theme.PruebasTODOApiTheme
+import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.ViewModelLifecycle
 
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val homeViewModel: TareaViewModel by viewModels()
         super.onCreate(savedInstanceState)
         setContent {
             PruebasTODOApiTheme {
@@ -32,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    AppNavigation()
+                    AppNavigation(homeViewModel)
                 }
 
             }
@@ -41,17 +47,31 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun img(){
-    Image(painter = painterResource(id = R.drawable.tareaimg), contentDescription ="imagen prueba",
+fun img100(){
+    Image(painter = painterResource(id = R.drawable.great), contentDescription ="imagen prueba",
         modifier = Modifier
-            .padding(10.dp)
-            .size(60.dp))
+            .clip(CircleShape)
+            .background(MaterialTheme.colors.primary)
+            .size(55.dp))
 }
-
-
-@Preview(showSystemUi = true)
 @Composable
-fun precompo(){
-    AppNavigation()
+fun imgnot100(){
+    Image(painter = painterResource(id = R.drawable.tarea), contentDescription ="imagen prueba",
+        modifier = Modifier
+            .clip(CircleShape)
+            .background(MaterialTheme.colors.primary)
+            .size(55.dp))
+}
+@Composable
+fun img(progress:Int){
+
+    if (progress == 100){
+        img100()
+    }else{
+        imgnot100()
+    }
 
 }
+
+
+
