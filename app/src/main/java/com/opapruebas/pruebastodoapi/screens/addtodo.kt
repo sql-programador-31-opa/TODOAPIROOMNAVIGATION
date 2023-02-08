@@ -99,7 +99,7 @@ fun botondefaul(navController: NavController,homeViewModel: TareaViewModelAbstra
         navController.popBackStack()
         homeViewModel.addTarea(tarea) }, modifier = Modifier
         .clip(RoundedCornerShape(50))) {
-    texto(TextoString = "Agregar Tarea")
+    Text(text = "Agregar Tarea")
     }
 }
 
