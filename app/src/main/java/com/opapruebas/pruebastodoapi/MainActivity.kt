@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -62,6 +63,16 @@ fun imgnot100(){
             .background(MaterialTheme.colors.primary)
             .size(55.dp))
 }
+@Composable
+fun deleteimg(){
+    Image(painter = painterResource(id = R.drawable.quitar), contentDescription ="icono delete", modifier =
+    Modifier.clickable { }
+        .clip(CircleShape)
+        .background(MaterialTheme.colors.primary)
+        .size(25.dp)
+        )
+}
+
 @Composable
 fun img(progress:Int){
 

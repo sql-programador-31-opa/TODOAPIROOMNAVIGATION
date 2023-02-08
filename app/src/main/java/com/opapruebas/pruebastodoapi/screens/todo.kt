@@ -22,6 +22,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.NavController
 import com.opapruebas.pruebastodoapi.data.BDMaster
 import com.opapruebas.pruebastodoapi.data.Tarea
+import com.opapruebas.pruebastodoapi.deleteimg
 import com.opapruebas.pruebastodoapi.img
 import com.opapruebas.pruebastodoapi.navigation.AppScreens
 import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModel
@@ -82,8 +83,8 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String){
         Row(modifier = Modifier
             .clickable {
                 expandir = !expandir
-                }
-            .padding(5.dp)) {
+            }
+            .padding(8.dp)) {
             Column(modifier = Modifier
                 .weight(0.3f)) {
                 Box(modifier = Modifier.align(alignment = Alignment.CenterHorizontally)) {
@@ -97,7 +98,10 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String){
                 Row() {
                     Text(text = titulo, modifier = Modifier.weight(0.5f), color = MaterialTheme.colors.primary )
 
-                    Text(text = "$progreso%", modifier = Modifier.weight(0.2f).clickable { }.padding(end = 3.dp), color = MaterialTheme.colors.primary)
+                    Text(text = "$progreso%", modifier = Modifier
+                        .weight(0.2f)
+                        .clickable { }
+                        .padding(end = 3.dp), color = MaterialTheme.colors.primary)
                 }
                 Spacer(modifier = Modifier.height(15.dp))
                 Row() {
@@ -107,12 +111,11 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String){
 
             }
         }
-        Icon(imageVector = Icons.Default.Delete, contentDescription ="Boton de atras",
-            modifier = Modifier
-                .clickable { }
-                .clip(CircleShape)
-                .background(MaterialTheme.colors.primary)
-                .align(alignment = Alignment.TopEnd))
+        Column(modifier = Modifier.align(alignment = Alignment.TopEnd)) {
+            deleteimg()
+        }
+
+
     }
 }
 
@@ -142,7 +145,9 @@ fun precompo (){
                 Row() {
                      Text(text = "titulo", modifier = Modifier.weight(0.8f), color = MaterialTheme.colors.primary )
 
-                    Text(text = "%", modifier = Modifier.weight(0.2f).clickable { }, color = MaterialTheme.colors.primary)
+                    Text(text = "%", modifier = Modifier
+                        .weight(0.2f)
+                        .clickable { }, color = MaterialTheme.colors.primary)
                 }
                     Spacer(modifier = Modifier.height(15.dp))
                 Row() {
