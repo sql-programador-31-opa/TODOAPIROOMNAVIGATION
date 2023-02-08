@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.NavController
+import com.opapruebas.pruebastodoapi.addimg
 import com.opapruebas.pruebastodoapi.data.BDMaster
 import com.opapruebas.pruebastodoapi.data.Tarea
 import com.opapruebas.pruebastodoapi.deleteimg
@@ -51,10 +52,13 @@ fun todobar(navController: NavController,homeViewModel:TareaViewModelAbstract){
         content(homeViewModel)
         FloatingActionButton(modifier = Modifier
             .padding(all = 20.dp)
-            .align(alignment = Alignment.BottomEnd) , onClick = {
-            navController.navigate(route = AppScreens.addtodo.route) }, )
+            .align(alignment = Alignment.BottomEnd)
+            .clip(CircleShape)
+            ,onClick = {
+            navController.navigate(route = AppScreens.addtodo.route)
+            }, contentColor = MaterialTheme.colors.primary)
         {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Crear nota")
+            addimg(navController)
         }
     }
     }
@@ -86,13 +90,13 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String){
             }
             .padding(8.dp)) {
             Column(modifier = Modifier
-                .weight(0.3f)) {
+                .weight(0.2f)) {
                 Box(modifier = Modifier.align(alignment = Alignment.CenterHorizontally)) {
                     img(progreso)
                 }
             }
             Column(modifier = Modifier
-                .weight(0.7f)
+                .weight(0.8f)
                 .padding(start = 10.dp)
             ) {
                 Row() {

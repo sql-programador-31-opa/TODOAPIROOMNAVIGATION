@@ -21,7 +21,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.opapruebas.pruebastodoapi.navigation.AppNavigation
+import com.opapruebas.pruebastodoapi.navigation.AppScreens
 import com.opapruebas.pruebastodoapi.ui.theme.PruebasTODOApiTheme
 import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,6 +73,15 @@ fun deleteimg(){
         .background(MaterialTheme.colors.primary)
         .size(25.dp)
         )
+}
+
+@Composable
+fun addimg(navController: NavController){
+    Image(painter = painterResource(id = R.drawable.agregar), contentDescription ="icono agregar", modifier =
+    Modifier.clickable { navController.navigate(route = AppScreens.addtodo.route)}
+        .clip(CircleShape)
+        .size(40.dp)
+    )
 }
 
 @Composable
