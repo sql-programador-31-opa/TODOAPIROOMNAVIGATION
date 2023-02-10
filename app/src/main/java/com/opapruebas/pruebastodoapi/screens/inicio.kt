@@ -1,15 +1,14 @@
 package com.opapruebas.pruebastodoapi.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.opapruebas.pruebastodoapi.navigation.AppScreens
 
@@ -31,6 +30,10 @@ fun CuerpoInicio(navController: NavController){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+            Text(text = "Bienvenido",
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colors.primary,
+            fontSize = 50.sp|)
         Row(
             modifier = Modifier.padding(10.dp)
         ) {
