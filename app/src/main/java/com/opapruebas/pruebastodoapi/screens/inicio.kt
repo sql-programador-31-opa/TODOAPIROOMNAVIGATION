@@ -40,11 +40,7 @@ fun CuerpoInicio(navController: NavController){
                 Text(text = "TODO APP")
             }
             Spacer(modifier = Modifier.width(30.dp))
-            Button(onClick = {
-                    navController.navigate(route = AppScreens.apimain.route)
-                }) {
-                    Text(text = "API APP")
-        }
+          
 
         }
 

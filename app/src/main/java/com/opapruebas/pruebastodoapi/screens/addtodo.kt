@@ -11,8 +11,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.opapruebas.pruebastodoapi.data.Tarea
 import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModelAbstract
@@ -45,7 +47,11 @@ fun CuerpoaddTodo(navController: NavController,homeViewModel: TareaViewModelAbst
       var titulo by remember { mutableStateOf("")}
       var descripcion by remember { mutableStateOf("")}
       var selection by remember { mutableStateOf(10f) }
-
+        Text(text = "Nueva Tarea",
+            fontSize = 40.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colors.primary)
+        Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
             value = titulo, onValueChange = {
                 titulo=it
@@ -62,6 +68,10 @@ fun CuerpoaddTodo(navController: NavController,homeViewModel: TareaViewModelAbst
         )
         Spacer(modifier = Modifier.height(15.dp))
         Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(end = 40.dp, start = 40.dp)
+
         ) {
             texto(TextoString = "Progreso de la tarea")
         Spacer(modifier = Modifier.height(15.dp) )

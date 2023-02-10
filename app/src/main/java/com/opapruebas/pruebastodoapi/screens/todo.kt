@@ -15,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -74,18 +75,30 @@ fun content(homeViewModel:TareaViewModelAbstract){
     var tareadescripcion:MutableState<String> = rememberSaveable { mutableStateOf("")}
     var tareaprogreso:MutableState<Int> = rememberSaveable { mutableStateOf(0)}
     val TareasListState = homeViewModel.ListaTareasFlow.collectAsState(initial = listOf())
-    LazyColumn{
+    LazyColumn(modifier = Modifier.padding(10.dp)){
         items(TareasListState.value.size){
             index ->
             val tareas = TareasListState.value[index]
 
+
+            var back:Color
+            if((tareas.id % 2 ) == 0){ back = MaterialTheme.colors.onSecondary}else{back = MaterialTheme.colors.onPrimary}
             Row(modifier = Modifier.clickable{
                popstate.value = Popstate.Open
                 tarea.value = tareas.id
                 tareatitulo.value = tareas.Titulo
                 tareadescripcion.value = tareas.Descripcion
                 tareaprogreso.value = tareas.Progreso
-            }.padding(10.dp)) {
+            }   .padding(10.dp)
+                .clip(RoundedCornerShape(15))
+                .background(back)
+
+
+
+
+
+
+                ) {
                 tareatextos(titulo = tareas.Titulo , progreso = tareas.Progreso , descripcion = tareas.Descripcion, id = tareas.id ,homeViewModel )
             }
         }
@@ -119,6 +132,7 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String,id:Int,homeViewMod
     Box(modifier = Modifier
         .fillMaxWidth()
         .padding(start = 8.dp, top = 8.dp, end = 8.dp)
+
     ){
         Row(modifier = Modifier
             .padding(8.dp)) {
@@ -155,7 +169,7 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String,id:Int,homeViewMod
 
             }
         }
-        Column(modifier = Modifier.align(alignment = Alignment.TopEnd).clickable{
+        Column(modifier = Modifier.align(alignment = Alignment.TopEnd).padding(end = 10.dp).clickable{
             homeViewModel.deleteTarea(id)
         }) {
             deleteimg()
