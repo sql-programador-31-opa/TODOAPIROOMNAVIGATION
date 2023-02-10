@@ -68,7 +68,7 @@ fun imgnot100(){
 @Composable
 fun deleteimg(){
     Image(painter = painterResource(id = R.drawable.quitar), contentDescription ="icono delete", modifier =
-    Modifier.clickable { }
+    Modifier
         .clip(CircleShape)
         .background(MaterialTheme.colors.primary)
         .size(25.dp)
@@ -80,7 +80,7 @@ fun addimg(navController: NavController){
     Image(painter = painterResource(id = R.drawable.agregar), contentDescription ="icono agregar", modifier =
     Modifier.clickable { navController.navigate(route = AppScreens.addtodo.route)}
         .clip(CircleShape)
-        .size(40.dp)
+        .size(20.dp)
     )
 }
 

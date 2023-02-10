@@ -14,8 +14,8 @@ interface TareaViewModelAbstract {
 
     val ListaTareasFlow: Flow<List<Tarea>>
     fun addTarea(tarea: Tarea)
-    fun updateTarea(tarea: Tarea)
-    fun deleteTarea(tarea: Tarea)
+    fun updateTarea(id:Int,Titulo:String,Descripcion:String,Progreso:Int)
+    fun deleteTarea(id: Int)
 }
 @HiltViewModel
 class TareaViewModel
@@ -27,20 +27,21 @@ class TareaViewModel
 
     override val ListaTareasFlow: Flow<List<Tarea>> = TareaRepository.getTareas()
 
+
     override fun addTarea(tarea: Tarea) {
         ioScope.launch {
             TareaRepository.addTarea(tarea = tarea)
         }
     }
-    override fun updateTarea(tarea: Tarea) {
+    override fun updateTarea(id:Int,Titulo:String,Descripcion:String,Progreso:Int) {
         ioScope.launch {
-            TareaRepository.updateTarea(tarea = tarea)
+            TareaRepository.updateTarea(id,Titulo,Descripcion,Progreso)
         }
     }
 
-    override fun deleteTarea(tarea: Tarea) {
+    override fun deleteTarea(id: Int) {
         ioScope.launch {
-            TareaRepository.deleteTarea(tarea = tarea)
+            TareaRepository.deleteTarea(id)
         }
     }
 
