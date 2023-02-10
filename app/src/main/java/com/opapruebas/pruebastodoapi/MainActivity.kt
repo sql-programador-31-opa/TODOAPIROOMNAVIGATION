@@ -54,7 +54,7 @@ fun img100(){
     Image(painter = painterResource(id = R.drawable.great), contentDescription ="imagen prueba",
         modifier = Modifier
             .clip(CircleShape)
-            .background(MaterialTheme.colors.primary)
+            .background(MaterialTheme.colors.secondary)
             .size(55.dp))
 }
 @Composable
@@ -62,7 +62,7 @@ fun imgnot100(){
     Image(painter = painterResource(id = R.drawable.tarea), contentDescription ="imagen prueba",
         modifier = Modifier
             .clip(CircleShape)
-            .background(MaterialTheme.colors.primary)
+            .background(MaterialTheme.colors.secondary)
             .size(55.dp))
 }
 @Composable
@@ -70,7 +70,7 @@ fun deleteimg(){
     Image(painter = painterResource(id = R.drawable.quitar), contentDescription ="icono delete", modifier =
     Modifier
         .clip(CircleShape)
-        .background(MaterialTheme.colors.primary)
+        .background(MaterialTheme.colors.secondary)
         .size(25.dp)
         )
 }
