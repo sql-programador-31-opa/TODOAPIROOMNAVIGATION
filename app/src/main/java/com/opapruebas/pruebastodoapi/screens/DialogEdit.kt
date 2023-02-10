@@ -43,13 +43,14 @@ save:(String,String)->Unit
                         .background(MaterialTheme.colors.background)
                         .align(alignment = Alignment.TopCenter)
                 ) {
-                   Column(modifier = Modifier.padding(10.dp)) {
+                   Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(10.dp)) {
                        Row() {
                            Text(
                                text = "Editar Datos de la Tarea",
                                fontSize = 20.sp,
                                fontWeight = FontWeight.SemiBold,
                                color = MaterialTheme.colors.primary,
+                               modifier = Modifier.weight(1f)
                            )
                        }
                        Spacer(modifier = Modifier.height(15.dp))
@@ -73,6 +74,7 @@ save:(String,String)->Unit
                                    descripcion.value = it
                                },
                                label = { Text(text = "Descripcion") },
+                               maxLines = 2,
                                modifier = Modifier.weight(1f)
                            )
                        }

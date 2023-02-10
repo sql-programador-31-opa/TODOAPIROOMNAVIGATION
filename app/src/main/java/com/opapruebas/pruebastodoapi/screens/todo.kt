@@ -85,7 +85,7 @@ fun content(homeViewModel:TareaViewModelAbstract){
                 tareatitulo.value = tareas.Titulo
                 tareadescripcion.value = tareas.Descripcion
                 tareaprogreso.value = tareas.Progreso
-            }) {
+            }.padding(10.dp)) {
                 tareatextos(titulo = tareas.Titulo , progreso = tareas.Progreso , descripcion = tareas.Descripcion, id = tareas.id ,homeViewModel )
             }
         }
@@ -231,7 +231,8 @@ fun precompo (){
                     .clickable { }
                     .clip(CircleShape)
                     .background(MaterialTheme.colors.primary)
-                    .align(alignment = Alignment.TopEnd))
+                    .align(alignment = Alignment.TopEnd)
+                    .padding(end = 10.dp))
         }
 
 }
