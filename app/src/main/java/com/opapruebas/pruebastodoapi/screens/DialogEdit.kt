@@ -28,92 +28,159 @@ save:(String,String)->Unit
 ){
     val titulo = rememberSaveable { mutableStateOf(tareatitulo.value)}
     var descripcion = rememberSaveable { mutableStateOf(tareadescripcion.value)}
-    Dialog(onDismissRequest = {dimiss()}){
-        Column(modifier = Modifier
-            .background(MaterialTheme.colors.background)
-            .padding(10.dp)
-            ) {
-            OutlinedTextField(
-                value = titulo.value,
-                onValueChange = { tituloe ->
-                    titulo.value = tituloe
-                },
-                label = { Text(text = "Titulo")},
-                maxLines = 1
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            OutlinedTextField(
-                value = descripcion.value, onValueChange = {
-                    descripcion.value=it
-                },
-                label = { Text( text="Descripcion")},
-            )
-            Row(modifier = Modifier.padding(start = 20.dp, top = 20.dp)) {
-                Button(onClick = { dimiss() }) {
-                    Text(text = "Cerrar")
-                }
-                Spacer(modifier = Modifier.width(20.dp))
-                Button(onClick = { dimiss()
-                    save(titulo.value, descripcion.value) }) {
-                    Text(text = "Actualizar")
-                }  
-            }
-           
-        }
+    Dialog(onDismissRequest = {dimiss()}) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth(0.85f)
+                .clip(RoundedCornerShape(25.dp))
+        ) {
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+                .clip(RoundedCornerShape(25.dp))) {
+                Column(
+                    modifier = Modifier
+                        .background(MaterialTheme.colors.background)
+                        .align(alignment = Alignment.TopCenter)
+                ) {
+                   Column(modifier = Modifier.padding(10.dp)) {
+                       Row() {
+                           Text(
+                               text = "Editar Datos de la Tarea",
+                               fontSize = 20.sp,
+                               fontWeight = FontWeight.SemiBold,
+                               color = MaterialTheme.colors.primary,
+                           )
+                       }
+                       Spacer(modifier = Modifier.height(15.dp))
+                       Row() {
+                           OutlinedTextField(
+                               value = titulo.value,
+                               onValueChange = { tituloe ->
+                                   titulo.value = tituloe
+                               },
+                               label = { Text(text = "Titulo") },
+                               maxLines = 1,
+                               modifier = Modifier.weight(1f)
+                           )
+                       }
 
+                       Spacer(modifier = Modifier.height(15.dp))
+                       Row() {
+                           OutlinedTextField(
+                               value = descripcion.value,
+                               onValueChange = {
+                                   descripcion.value = it
+                               },
+                               label = { Text(text = "Descripcion") },
+                               modifier = Modifier.weight(1f)
+                           )
+                       }
+
+                   }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(modifier = Modifier.padding(10.dp)) {
+                        Button(onClick = { dimiss() }, modifier = Modifier
+                            .width(80.dp)
+                            .weight(0.5f)) {
+                            Text(text = "Cerrar")
+                        }
+                        Spacer(modifier = Modifier.width(20.dp))
+                        Button(onClick = {
+                            dimiss()
+                            save(titulo.value, descripcion.value)
+                        }, modifier = Modifier
+                            .width(80.dp)
+                            .weight(0.5f)) {
+                            Text(text = "Actualizar")
+                        }
+                    }
+
+                }
+
+            }
+        }
     }
 }
+
 @Composable
 fun progressdialog(
     tareatitulo:String,
     tareaprogress:Float,
     dimiss:()->Unit,
     save:(Int)->Unit
-){
-    val progreso = rememberSaveable { mutableStateOf(tareaprogress)}
+) {
+    val progreso = rememberSaveable { mutableStateOf(tareaprogress) }
 
     Dialog(onDismissRequest = { dimiss() }) {
-        Column(modifier = Modifier
-            .background(MaterialTheme.colors.background)
-            .padding(10.dp)
-            ) {
-            Text(text = "$tareatitulo Progreso",fontSize = 20.sp,fontWeight = FontWeight.SemiBold, color = MaterialTheme.colors.primary)
-            Spacer(modifier = Modifier.height(20.dp))
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(contentAlignment = Alignment.Center) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Slider(
-                            value = progreso.value,
-                            valueRange =  0f..100f,
-                            onValueChange = {
-                                progreso.value = it
-                                            },
-                            modifier = Modifier
-                                .padding(end = 20.dp)
-                                .weight(0.9f)
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth(0.85f)
+                .clip(RoundedCornerShape(25.dp))
+                .padding(5.dp)
+        ) {
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp))
+            {
+                Column(
+                    modifier = Modifier
+                        .background(MaterialTheme.colors.background)
+                        .align(alignment = Alignment.Center)
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(10.dp)) {
+                        Text(
+                            text = "$tareatitulo Progreso",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colors.primary,
                         )
-                        val progress = progreso.value.toInt().toString()
-                        Text(text = "$progress%",maxLines = 1 ,
-                            modifier = Modifier
-                                .weight(0.1f)
-                        )
-                    }
-                }
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Box(contentAlignment = Alignment.Center) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Slider(
+                                    value = progreso.value,
+                                    valueRange = 0f..100f,
+                                    onValueChange = {
+                                        progreso.value = it
+                                    },
+                                    modifier = Modifier
+                                        .padding(end = 20.dp)
+                                        .weight(0.9f)
+                                )
+                                val progress = progreso.value.toInt().toString()
+                                Text(
+                                    text = "$progress%", maxLines = 1,
+                                    modifier = Modifier
+                                        .weight(0.1f)
+                                )
+                            }
+                        }
 
-            }
-            Row(modifier = Modifier.padding(start = 20.dp, top = 20.dp)) {
-                Button(onClick = { dimiss() }) {
-                    Text(text = "Cerrar")
-                }
-                Spacer(modifier = Modifier.width(20.dp))
-                Button(onClick = { dimiss()
-                    save(progreso.value.toInt()) }) {
-                    Text(text = "Actualizar")
+                    }
+                    Row(modifier = Modifier.padding(start = 20.dp, top = 20.dp)) {
+                        Button(onClick = { dimiss() }, modifier = Modifier
+                            .width(80.dp)
+                            .weight(0.5f)) {
+                            Text(text = "Cerrar")
+                        }
+                        Spacer(modifier = Modifier.width(20.dp))
+                        Button(onClick = {
+                            dimiss()
+                            save(progreso.value.toInt())
+                        }, modifier = Modifier
+                            .width(80.dp)
+                            .weight(0.5f)) {
+                            Text(text = "Actualizar")
+                        }
+                    }
                 }
             }
         }
     }
 
 }
+
+
 
 

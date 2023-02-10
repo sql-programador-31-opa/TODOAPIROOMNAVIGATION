@@ -42,8 +42,6 @@ fun todobar(navController: NavController,homeViewModel:TareaViewModelAbstract){
                     Column(modifier = Modifier.weight(0.1f)) {
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription ="Boton de atras",
                             modifier = Modifier.clickable { navController.popBackStack() })
-
-
                     }
                     Column(modifier = Modifier.weight(0.8f)) {
                         Text(text = "TODO APP DE TAREAS",fontSize = 16.sp, fontWeight = FontWeight.Bold)
@@ -51,14 +49,7 @@ fun todobar(navController: NavController,homeViewModel:TareaViewModelAbstract){
                     Column(modifier = Modifier.weight(0.1f)) {
                         addimg(navController)
                     }
-
-
-
                 }
-             
-                
-              
-
             }
 
         }
