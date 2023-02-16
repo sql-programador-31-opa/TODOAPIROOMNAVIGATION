@@ -89,7 +89,7 @@ save:(String,String)->Unit
                         Button(onClick = { dimiss() }, modifier = Modifier
                             .width(80.dp)
                             .weight(0.5f)) {
-                            Text(text = "Cerrar")
+                            Text(text = "Cancelar")
                         }
                         Spacer(modifier = Modifier.width(20.dp))
                         Button(onClick = {
@@ -168,7 +168,7 @@ fun progressdialog(
                         Button(onClick = { dimiss() }, modifier = Modifier
                             .width(80.dp)
                             .weight(0.5f)) {
-                            Text(text = "Cerrar")
+                            Text(text = "Cancelar")
                         }
                         Spacer(modifier = Modifier.width(20.dp))
                         Button(onClick = {
@@ -187,6 +187,54 @@ fun progressdialog(
 
 }
 
+@Composable
+fun deletedialog(
+    tareatitulo:String,
+    dimiss:()->Unit,
+    delete:()->Unit
+){
+    Dialog(onDismissRequest = { dimiss() }) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth(0.85f)
+                .clip(RoundedCornerShape(25.dp))
+                .padding(5.dp)
+        ) {
+            Column(modifier = Modifier.padding(25.dp)) {
+                    Text(text = "Esta seguro de Eliminar?")
+                Row(modifier = Modifier.padding(5.dp)) {
+                    Box(Modifier.fillMaxWidth()) {
+                        Text(
+                            text = "$tareatitulo",
+                            fontSize = 40.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colors.primary,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
 
+                }
+                Row(modifier = Modifier.padding(start = 20.dp, top = 20.dp)) {
+                    Button(onClick = { dimiss() }, modifier = Modifier
+                        .width(80.dp)
+                        .weight(0.5f)) {
+                        Text(text = "Cancelar")
+                    }
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Button(onClick = {
+                        dimiss()
+                        delete()
+                    }, modifier = Modifier
+                        .width(80.dp)
+                        .weight(0.5f)) {
+                        Text(text = "Eliminar")
+                    }
+                }
+            }
+
+
+        }
+    }
+}
 
 

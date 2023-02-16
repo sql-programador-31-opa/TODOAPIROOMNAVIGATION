@@ -71,6 +71,7 @@ enum class Popstate{
     Open,Close
 }
 
+
 @Composable
 fun content(homeViewModel:TareaViewModelAbstract){
     val popstate = rememberSaveable { mutableStateOf(Popstate.Close)}
@@ -86,7 +87,7 @@ fun content(homeViewModel:TareaViewModelAbstract){
 
 
             var back:Color
-            if((tareas.id % 2 ) == 0){ back = MaterialTheme.colors.onSecondary}else{back = MaterialTheme.colors.onPrimary}
+            if(tareas.Progreso == 100 ){ back = Color.Green.copy(0.1f) }else{back = Color.Transparent}
             Row(modifier = Modifier
                 .clickable {
                     popstate.value = Popstate.Open
@@ -129,11 +130,16 @@ fun content(homeViewModel:TareaViewModelAbstract){
 enum class Popprogress{
     Open,Close
 }
+enum class Popstatedelete{
+    Open,Close
+}
+
 
 @Composable
 fun tareatextos(titulo:String,progreso:Int,descripcion:String,id:Int,homeViewModel:TareaViewModelAbstract){
     var expandir by remember {mutableStateOf(false)}
     val popprogress = rememberSaveable { mutableStateOf(Popprogress.Close)}
+    val popdelete = rememberSaveable { mutableStateOf(Popstatedelete.Close)}
 
     Box(modifier = Modifier
         .fillMaxWidth()
@@ -179,12 +185,28 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String,id:Int,homeViewMod
             .align(alignment = Alignment.TopEnd)
             .padding(end = 10.dp)
             .clickable {
-                homeViewModel.deleteTarea(id)
+                popdelete.value = Popstatedelete.Open
+                //homeViewModel.deleteTarea(id)
             }) {
             deleteimg()
         }
 
 
+    }
+
+    when(popdelete.value){
+        Popstatedelete.Open -> {
+            deletedialog (
+                tareatitulo= titulo,
+                dimiss = {popdelete.value = Popstatedelete.Close },
+                delete = {
+                    homeViewModel.deleteTarea(id)
+                }
+            )
+        }
+        Popstatedelete.Close -> {
+
+        }
     }
 
     when(popprogress.value){
