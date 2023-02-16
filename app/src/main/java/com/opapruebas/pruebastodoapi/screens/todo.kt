@@ -25,6 +25,7 @@ import com.opapruebas.pruebastodoapi.addimg
 import com.opapruebas.pruebastodoapi.data.Tarea
 import com.opapruebas.pruebastodoapi.deleteimg
 import com.opapruebas.pruebastodoapi.img
+import com.opapruebas.pruebastodoapi.navigation.AppScreens
 import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModelAbstract
 
 @Composable
@@ -37,24 +38,27 @@ todobar(navController,homeViewModel)
 fun todobar(navController: NavController,homeViewModel:TareaViewModelAbstract){
 
     Scaffold( topBar = {
-        TopAppBar() {
+        TopAppBar(modifier = Modifier.fillMaxHeight(0.2f)) {
             Box(Modifier.fillMaxWidth()) {
                 Row(modifier = Modifier.padding(top = 15.dp)) {
-                    Column(modifier = Modifier.weight(0.1f)) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription ="Boton de atras",
-                            modifier = Modifier.clickable { navController.popBackStack() })
-                    }
                     Column(modifier = Modifier.weight(0.8f)) {
-                        Text(text = "TODO APP DE TAREAS",fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Box(modifier = Modifier.fillMaxWidth()) {
+                            Text(text = "TO_DO",fontSize = 50.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(alignment = Alignment.Center), color = Color.White)
+                        }
                     }
-                    Column(modifier = Modifier.weight(0.1f)) {
-                        addimg(navController)
-                    }
+
                 }
             }
-
         }
-    }) {
+    },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {navController.navigate(route = AppScreens.addtodo.route) }) {
+                Text(text = "+", fontSize = 40.sp)
+                
+            }
+        }
+
+    ) {
     Box(modifier = Modifier
         .fillMaxSize()){
         content(homeViewModel)
@@ -83,13 +87,15 @@ fun content(homeViewModel:TareaViewModelAbstract){
 
             var back:Color
             if((tareas.id % 2 ) == 0){ back = MaterialTheme.colors.onSecondary}else{back = MaterialTheme.colors.onPrimary}
-            Row(modifier = Modifier.clickable{
-               popstate.value = Popstate.Open
-                tarea.value = tareas.id
-                tareatitulo.value = tareas.Titulo
-                tareadescripcion.value = tareas.Descripcion
-                tareaprogreso.value = tareas.Progreso
-            }   .padding(10.dp)
+            Row(modifier = Modifier
+                .clickable {
+                    popstate.value = Popstate.Open
+                    tarea.value = tareas.id
+                    tareatitulo.value = tareas.Titulo
+                    tareadescripcion.value = tareas.Descripcion
+                    tareaprogreso.value = tareas.Progreso
+                }
+                .padding(10.dp)
                 .clip(RoundedCornerShape(15))
                 .background(back)
 
@@ -169,9 +175,12 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String,id:Int,homeViewMod
 
             }
         }
-        Column(modifier = Modifier.align(alignment = Alignment.TopEnd).padding(end = 10.dp).clickable{
-            homeViewModel.deleteTarea(id)
-        }) {
+        Column(modifier = Modifier
+            .align(alignment = Alignment.TopEnd)
+            .padding(end = 10.dp)
+            .clickable {
+                homeViewModel.deleteTarea(id)
+            }) {
             deleteimg()
         }
 

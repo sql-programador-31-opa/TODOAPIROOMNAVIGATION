@@ -7,33 +7,35 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.opapruebas.pruebastodoapi.navigation.AppNavigation
 import com.opapruebas.pruebastodoapi.navigation.AppScreens
 import com.opapruebas.pruebastodoapi.ui.theme.PruebasTODOApiTheme
 import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.ViewModelLifecycle
+
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val homeViewModel: TareaViewModel by viewModels()
+
         super.onCreate(savedInstanceState)
         setContent {
             PruebasTODOApiTheme {
@@ -78,10 +80,29 @@ fun deleteimg(){
 @Composable
 fun addimg(navController: NavController){
     Image(painter = painterResource(id = R.drawable.agregar), contentDescription ="icono agregar", modifier =
-    Modifier.clickable { navController.navigate(route = AppScreens.addtodo.route)}
+    Modifier
+        .clickable { navController.navigate(route = AppScreens.addtodo.route) }
         .clip(CircleShape)
         .size(20.dp)
     )
+}
+
+@Composable
+fun rmbg(){
+    Box() {
+        Image(painter = painterResource(id = R.drawable.rick_mortybg), contentDescription ="BackgroundAPI", modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+        Column(modifier = Modifier
+            .align(alignment = Alignment.BottomCenter)
+            .background(MaterialTheme.colors.background.copy(0.95f))
+            .fillMaxWidth()) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "API DEMO", color = Color.Cyan, fontSize = 60.sp, modifier = Modifier.align(Alignment.BottomCenter))
+            }
+
+        }
+
+    }
+
 }
 
 @Composable
@@ -93,6 +114,11 @@ fun img(progress:Int){
         imgnot100()
     }
 
+}
+@Composable
+@Preview
+fun previewf(){
+    rmbg()
 }
 
 

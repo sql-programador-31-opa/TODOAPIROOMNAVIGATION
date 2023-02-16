@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,10 +23,10 @@ import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModelAbstract
 @Composable
 fun addtodo(navController: NavController,homeViewModel: TareaViewModelAbstract){
     Scaffold() {
-        TopAppBar() {
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription ="Boton de atras",
-                modifier = Modifier.clickable { navController.popBackStack() })
-            Text(text = "Agregar Tarea")
+        TopAppBar(modifier = Modifier.fillMaxHeight(0.3f)) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Nueva Tarea",fontSize = 50.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(alignment = Alignment.Center), color = Color.White)
+            }
         }
         CuerpoaddTodo(navController,homeViewModel)
 
@@ -47,10 +48,7 @@ fun CuerpoaddTodo(navController: NavController,homeViewModel: TareaViewModelAbst
       var titulo by remember { mutableStateOf("")}
       var descripcion by remember { mutableStateOf("")}
       var selection by remember { mutableStateOf(10f) }
-        Text(text = "Nueva Tarea",
-            fontSize = 40.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colors.primary)
+
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
             value = titulo, onValueChange = {

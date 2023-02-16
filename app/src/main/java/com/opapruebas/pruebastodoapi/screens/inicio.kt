@@ -1,10 +1,13 @@
 package com.opapruebas.pruebastodoapi.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -16,8 +19,10 @@ import com.opapruebas.pruebastodoapi.navigation.AppScreens
 @Composable
 fun inicio(navController: NavController){
         Scaffold() {
-                TopAppBar() {
-                    Text(text = "TODO API APP")
+                TopAppBar(modifier = Modifier.fillMaxHeight(0.3f)) {
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        Text(text = "MI OPA DEMO",fontSize = 50.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(alignment = Alignment.Center), color = Color.White)
+                    }
                 }
             CuerpoInicio(navController)
         }
@@ -30,21 +35,16 @@ fun CuerpoInicio(navController: NavController){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-            Text(text = "Bienvenido",
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colors.primary,
-            fontSize = 50.sp|)
-        Row(
-            modifier = Modifier.padding(10.dp)
-        ) {
             Button(onClick = {
                 navController.navigate(route = AppScreens.todo.route)
-            }) {
-                Text(text = "TODO APP")
+            }, modifier = Modifier.width(230.dp).height(100.dp).clip(RoundedCornerShape(25.dp))) {
+                Text(text = "TODO APP", fontSize = 40.sp)
             }
-            Spacer(modifier = Modifier.width(30.dp))
-          
-
+        Spacer(modifier = Modifier.height(30.dp))
+        Button(onClick = {
+            navController.navigate(route = AppScreens.apimain.route)
+        }, modifier = Modifier.width(230.dp).height(100.dp).clip(RoundedCornerShape(25.dp))) {
+            Text(text = "API APP", fontSize = 40.sp)
         }
 
     }
