@@ -45,13 +45,17 @@ save:(String,String)->Unit
                 ) {
                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(10.dp)) {
                        Row() {
-                           Text(
-                               text = "Editar Datos de la Tarea",
-                               fontSize = 20.sp,
-                               fontWeight = FontWeight.SemiBold,
-                               color = MaterialTheme.colors.primary,
-                               modifier = Modifier.weight(1f)
-                           )
+                           Box(modifier = Modifier.weight(1f)) {
+                               Text(
+                                   text = "Editar Datos de la Tarea",
+                                   fontSize = 20.sp,
+                                   fontWeight = FontWeight.SemiBold,
+                                   color = MaterialTheme.colors.primary,
+                                   modifier = Modifier.align(alignment = Alignment.Center)
+
+                               )
+                           }
+
                        }
                        Spacer(modifier = Modifier.height(15.dp))
                        Row() {
