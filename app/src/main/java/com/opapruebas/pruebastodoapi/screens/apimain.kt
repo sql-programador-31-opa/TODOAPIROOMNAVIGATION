@@ -108,7 +108,7 @@ index->
                 Text( fontSize = 40.sp,text = Personajes[index].name, color = Color.Cyan)
                 Spacer(modifier = Modifier.height(5.dp))
                 Row() {
-                    Box() {
+                    Box(Modifier.fillMaxWidth(0.3f)) {
                         val colorbox:Color
                         if (pj.status == "Alive"){
                             colorbox = MaterialTheme.colors.onSecondary
@@ -122,8 +122,7 @@ index->
                             .clip(CircleShape)
                             .background(colorbox)
                             .align(Alignment.CenterStart))
-                        Spacer(modifier = Modifier.width(50.dp))
-                        Text(text = Personajes[index].status, fontSize = 20.sp, modifier = Modifier.align(Alignment.CenterEnd))
+                        Text(text = Personajes[index].status, fontSize = 20.sp, modifier = Modifier.align(Alignment.Center))
                     }
 
                 }
