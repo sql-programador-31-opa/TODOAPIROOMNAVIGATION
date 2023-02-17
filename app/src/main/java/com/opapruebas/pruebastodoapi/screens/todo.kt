@@ -18,7 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -83,10 +85,10 @@ fun content(homeViewModel:TareaViewModelAbstract){
         items(TareasListState.value.size){
             index ->
             val tareas = TareasListState.value[index]
-                Card(elevation = 20.dp, shape = RoundedCornerShape(20.dp), modifier = Modifier.padding(horizontal = 50.dp)) {
+                Card(elevation = 5.dp, shape = RoundedCornerShape(20.dp), modifier = Modifier.padding(horizontal = 30.dp)) {
                     tareatextos(titulo = tareas.Titulo , progreso = tareas.Progreso , id = tareas.id ,homeViewModel )
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(15.dp))
         }
     }
 }
@@ -111,42 +113,55 @@ fun tareatextos(titulo:String,progreso:Boolean,id:Int,homeViewModel:TareaViewMod
 
 
                 Row(modifier=Modifier.padding(10.dp)) {
-                    Column(modifier = Modifier.weight(0.2f)) {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            Column(modifier = Modifier
-                                .align(alignment = Alignment.Center)
-                                .fillMaxSize()) {
-                                Checkbox(checked = progreso,
-                                    onCheckedChange ={
-                                        checkprogres.value = it
-                                        popprogress.value = Popprogress.Open
-                                    },
-                                    colors = CheckboxDefaults.colors(
-                                        checkedColor = MaterialTheme.colors.onSecondary))
-                            }
-
-                        }
-
-                    }
-                    Column(modifier = Modifier.weight(0.6f)) {
-                        Box() {
-                            Text(text = titulo, fontSize = 55.sp,fontWeight = FontWeight.SemiBold, color = MaterialTheme.colors.primary, modifier = Modifier.align(alignment = Alignment.Center))
-                        }
-                    }
                     Column(modifier = Modifier
-                        .weight(0.1f)
-                        .clickable {
-                            popdelete.value = Popstatedelete.Open
-                        }) {
-                        deleteimg()
+                        .weight(0.2f)
+                        .padding(15.dp)) {
+                        Checkbox(checked = progreso,
+                            onCheckedChange ={
+                                checkprogres.value = it
+                                popprogress.value = Popprogress.Open
+                            },
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = MaterialTheme.colors.onSecondary))
                     }
-                    Spacer(modifier = Modifier.height(10.dp).border(border = BorderStroke(1.dp,MaterialTheme.colors.primary)))
+
+
+                    Column(modifier = Modifier.weight(0.6f).padding(10.dp)) {
+                        Box() {
+                            val textd:TextDecoration
+                            val textcolor:Color
+                            if (progreso){
+                                textd = TextDecoration.LineThrough
+                                textcolor = Color.Gray
+                            }else{
+                                textd= TextDecoration.None
+                                textcolor = MaterialTheme.colors.primary}
+                            Text(text = titulo, textDecoration = textd, fontSize = 55.sp,fontWeight = FontWeight.SemiBold, color = textcolor, modifier = Modifier.align(alignment = Alignment.Center))
+                        }
+                    }
                     Column(modifier = Modifier
                         .weight(0.1f)
                         .clickable {
                             popstate.value = Popstate.Open
-                        }) {
+                        }
+                        .padding(vertical = 10.dp)) {
                         editimg()
+                    }
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Box(modifier = Modifier
+                        .height(70.dp)
+                        .width(2.dp)
+                        .clip(RectangleShape)
+                        .background(MaterialTheme.colors.primary)
+                       )
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Column(modifier = Modifier
+                        .weight(0.1f)
+                        .clickable {
+                            popdelete.value = Popstatedelete.Open
+                        }
+                        .padding(vertical = 10.dp)) {
+                        deleteimg()
                     }
 
                 }

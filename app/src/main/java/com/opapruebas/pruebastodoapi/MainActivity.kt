@@ -97,7 +97,7 @@ fun rmbg(){
         Image(painter = painterResource(id = R.drawable.rick_mortybg), contentDescription ="BackgroundAPI", modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
         Column(modifier = Modifier
             .align(alignment = Alignment.BottomCenter)
-            .background(MaterialTheme.colors.background.copy(0.95f))
+            .background(MaterialTheme.colors.background)
             .fillMaxWidth()) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Text(text = "API DEMO", color = Color.Cyan, fontSize = 60.sp, modifier = Modifier.align(Alignment.BottomCenter))

@@ -101,8 +101,8 @@ index->
             }
             Column(modifier = Modifier
                 .weight(0.8f)
-                .padding(7.dp)) {
-                Text( fontSize = 30.sp,text = Personajes[index].name, color = Color.Cyan)
+                .padding(vertical = 15.dp, horizontal = 10.dp)) {
+                Text( fontSize = 40.sp,text = Personajes[index].name, color = Color.Cyan)
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(text = Personajes[index].specie)
             }
