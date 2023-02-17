@@ -53,7 +53,7 @@ fun CuerpoaddTodo(navController: NavController,homeViewModel: TareaViewModelAbst
             value = titulo, onValueChange = {
                 titulo=it
             },
-            label = { Text(text = "Titulo")},
+            label = { Text(text = "Titulo",color = MaterialTheme.colors.primary,fontSize = 30.sp)},
             maxLines = 1
         )
         Spacer(modifier = Modifier.height(15.dp))
@@ -68,8 +68,8 @@ fun botondefaul(navController: NavController,homeViewModel: TareaViewModelAbstra
     Button(onClick = {
         navController.popBackStack()
         homeViewModel.addTarea(tarea) }, modifier = Modifier
-        .clip(RoundedCornerShape(50))) {
-    Text(text = "Agregar Tarea")
+        .clip(RoundedCornerShape(25))) {
+    Text(text = "Agregar Tarea",fontSize = 25.sp)
     }
 }
 

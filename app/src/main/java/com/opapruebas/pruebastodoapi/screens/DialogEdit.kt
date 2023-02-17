@@ -9,6 +9,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,11 +43,11 @@ save:(String)->Unit
                         .align(alignment = Alignment.TopCenter)
                 ) {
                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(10.dp)) {
-                       Row() {
+                       Row(verticalAlignment = Alignment.CenterVertically) {
                            Box(modifier = Modifier.weight(1f)) {
                                Text(
                                    text = "Editar Datos de la Tarea",
-                                   fontSize = 20.sp,
+                                   fontSize = 35.sp,
                                    fontWeight = FontWeight.SemiBold,
                                    color = MaterialTheme.colors.primary,
                                    modifier = Modifier.align(alignment = Alignment.Center)
@@ -62,20 +63,21 @@ save:(String)->Unit
                                onValueChange = { tituloe ->
                                    titulo.value = tituloe
                                },
-                               label = { Text(text = "Titulo") },
+                               label = { Text(text = "Titulo",color = MaterialTheme.colors.primary,fontSize = 20.sp) },
                                maxLines = 1,
                                modifier = Modifier.weight(1f)
                            )
                        }
-
-                       Spacer(modifier = Modifier.height(15.dp))
-
                    }
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(modifier = Modifier.padding(10.dp)) {
                         Button(onClick = { dimiss() }, modifier = Modifier
                             .width(80.dp)
-                            .weight(0.5f)) {
+                            .weight(0.5f),
+                            colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.Gray ,
+                            contentColor = Color.White
+                        ) ) {
                             Text(text = "Cancelar")
                         }
                         Spacer(modifier = Modifier.width(20.dp))
@@ -84,7 +86,11 @@ save:(String)->Unit
                             save(titulo.value)
                         }, modifier = Modifier
                             .width(80.dp)
-                            .weight(0.5f)) {
+                            .weight(0.5f),
+                            colors = ButtonDefaults.buttonColors(
+                            backgroundColor = MaterialTheme.colors.primary ,
+                            contentColor = Color.White
+                        ) ) {
                             Text(text = "Actualizar")
                         }
                     }
@@ -110,42 +116,47 @@ fun progressdialog(
                 .clip(RoundedCornerShape(25.dp))
                 .padding(5.dp)
         ) {
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp))
-            {
-                Column(
-                    modifier = Modifier
-                        .background(MaterialTheme.colors.background)
-                        .align(alignment = Alignment.Center)
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(10.dp)) {
+            Column(modifier = Modifier.padding(25.dp)) {
+                Text(text = "Esta seguro de actualizar el progreso?")
+                Row(modifier = Modifier.padding(5.dp)) {
+                    Box(Modifier.fillMaxWidth()) {
                         Text(
-                            text = "$tareatitulo Progreso",
-                            fontSize = 20.sp,
+                            text = "$tareatitulo",
+                            fontSize = 40.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colors.primary,
+                            modifier = Modifier.align(Alignment.Center)
                         )
-                        Spacer(modifier = Modifier.height(20.dp))
                     }
-                    Row(modifier = Modifier.padding(start = 20.dp, top = 20.dp)) {
-                        Button(onClick = { dimiss() }, modifier = Modifier
-                            .width(80.dp)
-                            .weight(0.5f)) {
-                            Text(text = "Cancelar")
-                        }
-                        Spacer(modifier = Modifier.width(20.dp))
-                        Button(onClick = {
-                            dimiss()
-                            save()
-                        }, modifier = Modifier
-                            .width(80.dp)
-                            .weight(0.5f)) {
-                            Text(text = "Actualizar")
-                        }
+
+                }
+                Row(modifier = Modifier.padding(start = 20.dp, top = 20.dp)) {
+                    Button(onClick = { dimiss() }, modifier = Modifier
+                        .width(80.dp)
+                        .weight(0.5f),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.Gray ,
+                            contentColor = Color.White
+                        ) ) {
+                        Text(text = "Cancelar")
+                    }
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Button( onClick = {
+                        dimiss()
+                        save()
+                    }, modifier = Modifier
+                        .width(80.dp)
+                        .weight(0.5f),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = MaterialTheme.colors.primary ,
+                            contentColor = Color.White
+                        ) ) {
+                        Text(text = "Actualizar")
                     }
                 }
             }
+
+
         }
     }
 
@@ -172,7 +183,7 @@ fun deletedialog(
                             text = "$tareatitulo",
                             fontSize = 40.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colors.primary,
+                            color = MaterialTheme.colors.secondary,
                             modifier = Modifier.align(Alignment.Center)
                         )
                     }
@@ -181,16 +192,24 @@ fun deletedialog(
                 Row(modifier = Modifier.padding(start = 20.dp, top = 20.dp)) {
                     Button(onClick = { dimiss() }, modifier = Modifier
                         .width(80.dp)
-                        .weight(0.5f)) {
+                        .weight(0.5f),
+                        colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color.Gray ,
+                        contentColor = Color.White
+                    ) ) {
                         Text(text = "Cancelar")
                     }
                     Spacer(modifier = Modifier.width(20.dp))
-                    Button(onClick = {
+                    Button( onClick = {
                         dimiss()
                         delete()
                     }, modifier = Modifier
                         .width(80.dp)
-                        .weight(0.5f)) {
+                        .weight(0.5f),
+                            colors = ButtonDefaults.buttonColors(
+                            backgroundColor = MaterialTheme.colors.secondary ,
+                            contentColor = Color.White
+                        ) ) {
                         Text(text = "Eliminar")
                     }
                 }
