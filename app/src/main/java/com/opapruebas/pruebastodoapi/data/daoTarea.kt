@@ -14,10 +14,8 @@ fun getTareas(): Flow<List<Tarea>>
 @Insert
 suspend fun addTarea(Tarea:Tarea)
 
-
-
-@Query("UPDATE Tareas_table SET Titulo =:Titulo, Descripcion =:Descripcion, Progreso =:Progreso WHERE id =:id")
-suspend fun updateTarea(id:Int, Titulo:String, Descripcion:String, Progreso:Int)
+@Query("UPDATE Tareas_table SET Titulo =:Titulo, Progreso =:Progreso WHERE id =:id")
+suspend fun updateTarea(id:Int, Titulo:String, Progreso:Boolean)
 
 @Query("DELETE FROM Tareas_table WHERE id =:id")
 suspend fun deleteTarea(id:Int)

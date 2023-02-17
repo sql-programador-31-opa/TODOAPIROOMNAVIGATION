@@ -11,4 +11,6 @@ val negro2 = Color(0xFF646464)
 val blanco = Color(0xFFFFFFFF)
 val azul = Color(0xFFE3F2FD)
 val azul2 = Color(0xFFFFF8E1)
-
+val cyan1 = Color(0xff00c1ff)
+val verde = Color(0xff1ce262)
+val rojo = Color(0xffff0003)

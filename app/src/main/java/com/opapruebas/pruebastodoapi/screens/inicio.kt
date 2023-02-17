@@ -1,5 +1,6 @@
 package com.opapruebas.pruebastodoapi.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -21,7 +22,7 @@ fun inicio(navController: NavController){
         Scaffold() {
                 TopAppBar(modifier = Modifier.fillMaxHeight(0.3f)) {
                     Box(modifier = Modifier.fillMaxWidth()) {
-                        Text(text = "MI OPA DEMO",fontSize = 50.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(alignment = Alignment.Center), color = Color.White)
+                        Text(text = "MI OPA DEMO",fontSize = 50.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(alignment = Alignment.Center).background(color = MaterialTheme.colors.primary), color = Color.White)
                     }
                 }
             CuerpoInicio(navController)
@@ -37,14 +38,26 @@ fun CuerpoInicio(navController: NavController){
     ) {
             Button(onClick = {
                 navController.navigate(route = AppScreens.todo.route)
-            }, modifier = Modifier.width(230.dp).height(100.dp).clip(RoundedCornerShape(25.dp))) {
-                Text(text = "TODO APP", fontSize = 40.sp)
+            }, colors = ButtonDefaults.buttonColors(
+                backgroundColor = MaterialTheme.colors.primary ,
+                contentColor = Color.White
+            ) , modifier = Modifier
+                .width(230.dp)
+                .height(100.dp)
+                .clip(RoundedCornerShape(25.dp))) {
+                Text(text = "TODO APP", fontSize = 40.sp,color=Color.White)
             }
         Spacer(modifier = Modifier.height(30.dp))
         Button(onClick = {
             navController.navigate(route = AppScreens.apimain.route)
-        }, modifier = Modifier.width(230.dp).height(100.dp).clip(RoundedCornerShape(25.dp))) {
-            Text(text = "API APP", fontSize = 40.sp)
+        }, colors = ButtonDefaults.buttonColors(
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = Color.White
+        ), modifier = Modifier
+            .width(230.dp)
+            .height(100.dp)
+            .clip(RoundedCornerShape(25.dp))) {
+            Text(text = "API APP", fontSize = 40.sp,color=Color.White)
         }
 
     }

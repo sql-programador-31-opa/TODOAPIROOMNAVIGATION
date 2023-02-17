@@ -1,6 +1,8 @@
 package com.opapruebas.pruebastodoapi.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +26,7 @@ import androidx.navigation.NavController
 import com.opapruebas.pruebastodoapi.addimg
 import com.opapruebas.pruebastodoapi.data.Tarea
 import com.opapruebas.pruebastodoapi.deleteimg
+import com.opapruebas.pruebastodoapi.editimg
 import com.opapruebas.pruebastodoapi.img
 import com.opapruebas.pruebastodoapi.navigation.AppScreens
 import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModelAbstract
@@ -52,8 +55,8 @@ fun todobar(navController: NavController,homeViewModel:TareaViewModelAbstract){
         }
     },
         floatingActionButton = {
-            FloatingActionButton(onClick = {navController.navigate(route = AppScreens.addtodo.route) }) {
-                Text(text = "+", fontSize = 40.sp)
+            FloatingActionButton(onClick = {navController.navigate(route = AppScreens.addtodo.route) }, backgroundColor = MaterialTheme.colors.primary) {
+                Text(text = "+", fontSize = 40.sp, color = Color.White)
                 
             }
         }
@@ -74,59 +77,21 @@ enum class Popstate{
 
 @Composable
 fun content(homeViewModel:TareaViewModelAbstract){
-    val popstate = rememberSaveable { mutableStateOf(Popstate.Close)}
     var tarea:MutableState<Int> = rememberSaveable { mutableStateOf(0)}
-    var tareatitulo:MutableState<String> = rememberSaveable { mutableStateOf("")}
-    var tareadescripcion:MutableState<String> = rememberSaveable { mutableStateOf("")}
-    var tareaprogreso:MutableState<Int> = rememberSaveable { mutableStateOf(0)}
     val TareasListState = homeViewModel.ListaTareasFlow.collectAsState(initial = listOf())
-    LazyColumn(modifier = Modifier.padding(10.dp)){
+    LazyColumn(modifier = Modifier.padding(15.dp)){
         items(TareasListState.value.size){
             index ->
             val tareas = TareasListState.value[index]
-
-
-            var back:Color
-            if(tareas.Progreso == 100 ){ back = Color.Green.copy(0.1f) }else{back = Color.Transparent}
-            Row(modifier = Modifier
-                .clickable {
-                    popstate.value = Popstate.Open
-                    tarea.value = tareas.id
-                    tareatitulo.value = tareas.Titulo
-                    tareadescripcion.value = tareas.Descripcion
-                    tareaprogreso.value = tareas.Progreso
-                }
-                .padding(10.dp)
-                .clip(RoundedCornerShape(15))
-                .background(back)
-
-
-
-
-
-
-                ) {
-                tareatextos(titulo = tareas.Titulo , progreso = tareas.Progreso , descripcion = tareas.Descripcion, id = tareas.id ,homeViewModel )
+                Card(elevation = 20.dp, shape = RoundedCornerShape(20.dp), modifier = Modifier.padding(horizontal = 50.dp)) {
+                    tareatextos(titulo = tareas.Titulo , progreso = tareas.Progreso , id = tareas.id ,homeViewModel )
             }
+            Spacer(modifier = Modifier.height(10.dp))
         }
     }
-    when(popstate.value){
-        Popstate.Open -> {
-            Dialogoedit (
-                tareatitulo = tareatitulo,
-                tareadescripcion = tareadescripcion,
-                dimiss = {popstate.value = Popstate.Close },
-                save = {titulo,descripcion->
-                    homeViewModel.updateTarea(tarea.value,titulo,descripcion,tareaprogreso.value)
-                }
-            )
-        }
-        Popstate.Close -> {
-
-        }
-    }
-
 }
+
+
 enum class Popprogress{
     Open,Close
 }
@@ -136,62 +101,69 @@ enum class Popstatedelete{
 
 
 @Composable
-fun tareatextos(titulo:String,progreso:Int,descripcion:String,id:Int,homeViewModel:TareaViewModelAbstract){
-    var expandir by remember {mutableStateOf(false)}
+fun tareatextos(titulo:String,progreso:Boolean,id:Int,homeViewModel:TareaViewModelAbstract){
     val popprogress = rememberSaveable { mutableStateOf(Popprogress.Close)}
     val popdelete = rememberSaveable { mutableStateOf(Popstatedelete.Close)}
+    val checkprogres:MutableState<Boolean> = remember { mutableStateOf(progreso)}
+    val popstate = rememberSaveable { mutableStateOf(Popstate.Close)}
+    var tareatitulo:MutableState<String> = rememberSaveable { mutableStateOf(titulo)}
+    var tareaprogreso:MutableState<Boolean> = rememberSaveable { mutableStateOf(progreso)}
 
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .padding(start = 8.dp, top = 8.dp, end = 8.dp)
 
-    ){
-        Row(modifier = Modifier
-            .padding(8.dp)) {
-            Column(modifier = Modifier
-                .weight(0.2f)) {
-                Box(modifier = Modifier.align(alignment = Alignment.CenterHorizontally)) {
-                    img(progreso)
-                }
-            }
-            Column(modifier = Modifier
-                .weight(0.8f)
-                .padding(start = 10.dp)
-                .clickable {
-                    expandir = !expandir
-                }
-            ) {
-                Row() {
-                    Text(text = titulo, fontSize = 20.sp,fontWeight = FontWeight.SemiBold, color = MaterialTheme.colors.primary,
-                        modifier = Modifier.weight(0.7f))
+                Row(modifier=Modifier.padding(10.dp)) {
+                    Column(modifier = Modifier.weight(0.2f)) {
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            Column(modifier = Modifier
+                                .align(alignment = Alignment.Center)
+                                .fillMaxSize()) {
+                                Checkbox(checked = progreso,
+                                    onCheckedChange ={
+                                        checkprogres.value = it
+                                        popprogress.value = Popprogress.Open
+                                    },
+                                    colors = CheckboxDefaults.colors(
+                                        checkedColor = MaterialTheme.colors.onSecondary))
+                            }
 
-                    Text(text = "$progreso%",fontSize = 20.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier
-                        .weight(0.3f)
-                        .clickable {
-                            popprogress.value = Popprogress.Open
                         }
-                        .padding(end = 3.dp), color = MaterialTheme.colors.primary)
+
+                    }
+                    Column(modifier = Modifier.weight(0.6f)) {
+                        Box() {
+                            Text(text = titulo, fontSize = 55.sp,fontWeight = FontWeight.SemiBold, color = MaterialTheme.colors.primary, modifier = Modifier.align(alignment = Alignment.Center))
+                        }
+                    }
+                    Column(modifier = Modifier
+                        .weight(0.1f)
+                        .clickable {
+                            popdelete.value = Popstatedelete.Open
+                        }) {
+                        deleteimg()
+                    }
+                    Spacer(modifier = Modifier.height(10.dp).border(border = BorderStroke(1.dp,MaterialTheme.colors.primary)))
+                    Column(modifier = Modifier
+                        .weight(0.1f)
+                        .clickable {
+                            popstate.value = Popstate.Open
+                        }) {
+                        editimg()
+                    }
+
                 }
-                Spacer(modifier = Modifier.height(4.dp))
-                Row(
-                ) {
-                    texto(TextoString = descripcion, if (expandir) Int.MAX_VALUE else 1)
+
+    when(popstate.value){
+        Popstate.Open -> {
+            Dialogoedit (
+                tareatitulo = tareatitulo,
+                dimiss = {popstate.value = Popstate.Close },
+                save = {titulo->
+                    homeViewModel.updateTarea(id,titulo,tareaprogreso.value)
                 }
-
-
-            }
+            )
         }
-        Column(modifier = Modifier
-            .align(alignment = Alignment.TopEnd)
-            .padding(end = 10.dp)
-            .clickable {
-                popdelete.value = Popstatedelete.Open
-                //homeViewModel.deleteTarea(id)
-            }) {
-            deleteimg()
+        Popstate.Close -> {
+
         }
-
-
     }
 
     when(popdelete.value){
@@ -213,10 +185,12 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String,id:Int,homeViewMod
         Popprogress.Open -> {
             progressdialog (
                 tareatitulo= titulo,
-                tareaprogress = progreso.toFloat(),
-                dimiss = {popprogress.value = Popprogress.Close },
+                dimiss = {popprogress.value = Popprogress.Close
+                    checkprogres.value = !checkprogres.value},
                 save = {
-                    homeViewModel.updateTarea(id = id , Titulo =  titulo, Descripcion = descripcion, Progreso = it)
+                    homeViewModel.updateTarea(id = id , Titulo =  titulo, Progreso = !checkprogres.value)
+
+
                 }
             )
         }
@@ -224,6 +198,7 @@ fun tareatextos(titulo:String,progreso:Int,descripcion:String,id:Int,homeViewMod
 
         }
     }
+
 
 
 
@@ -249,7 +224,7 @@ fun precompo (){
                 Column(modifier = Modifier
                     .weight(0.3f)) {
                     Box(modifier = Modifier.align(alignment = Alignment.CenterHorizontally)) {
-                        img(progress = 20)
+                        img(progress = false)
                     }
                 }
                 Column(modifier = Modifier

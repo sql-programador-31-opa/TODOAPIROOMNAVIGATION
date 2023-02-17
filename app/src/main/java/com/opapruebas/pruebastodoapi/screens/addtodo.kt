@@ -46,8 +46,7 @@ fun CuerpoaddTodo(navController: NavController,homeViewModel: TareaViewModelAbst
     ) {
 
       var titulo by remember { mutableStateOf("")}
-      var descripcion by remember { mutableStateOf("")}
-      var selection by remember { mutableStateOf(10f) }
+
 
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
@@ -58,45 +57,8 @@ fun CuerpoaddTodo(navController: NavController,homeViewModel: TareaViewModelAbst
             maxLines = 1
         )
         Spacer(modifier = Modifier.height(15.dp))
-        OutlinedTextField(
-            value = descripcion, onValueChange = {
-                descripcion=it
-            },
-            label = { Text(text = "Descripcion")},
-        )
         Spacer(modifier = Modifier.height(15.dp))
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(end = 40.dp, start = 40.dp)
-
-        ) {
-            texto(TextoString = "Progreso de la tarea")
-        Spacer(modifier = Modifier.height(15.dp) )
-
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(contentAlignment = Alignment.Center) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Slider(
-                            value = selection,
-                            valueRange =  0f..100f,
-                            onValueChange = { selection = it },
-                            modifier = Modifier
-                                .padding(end = 20.dp)
-                                .weight(0.9f)
-                        )
-                        val progress = selection.toInt().toString()
-                        Text(text = "$progress%",maxLines = 1 ,
-                            modifier = Modifier
-                                .weight(0.1f)
-                        )
-                    }
-                }
-
-            }
-        }
-       val tarea = Tarea(Titulo = titulo, Descripcion = descripcion, Progreso = selection.toInt())
+       val tarea = Tarea(Titulo = titulo,  Progreso = false)
         botondefaul(navController,homeViewModel,tarea)
     }
 }

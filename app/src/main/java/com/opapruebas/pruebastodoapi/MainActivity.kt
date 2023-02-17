@@ -63,18 +63,22 @@ fun img100(){
 fun imgnot100(){
     Image(painter = painterResource(id = R.drawable.tarea), contentDescription ="imagen prueba",
         modifier = Modifier
-            .clip(CircleShape)
-            .background(MaterialTheme.colors.secondary)
-            .size(55.dp))
+
+            .size(25.dp))
 }
 @Composable
 fun deleteimg(){
-    Image(painter = painterResource(id = R.drawable.quitar), contentDescription ="icono delete", modifier =
+    Image(painter = painterResource(id = R.drawable.basura), contentDescription ="icono delete", modifier =
     Modifier
-        .clip(CircleShape)
-        .background(MaterialTheme.colors.secondary)
-        .size(25.dp)
+        .size(55.dp)
         )
+}
+@Composable
+fun editimg(){
+    Image(painter = painterResource(id = R.drawable.editar), contentDescription ="icono edit", modifier =
+    Modifier
+        .size(55.dp)
+    )
 }
 
 @Composable
@@ -106,9 +110,9 @@ fun rmbg(){
 }
 
 @Composable
-fun img(progress:Int){
+fun img(progress:Boolean){
 
-    if (progress == 100){
+    if (progress == true){
         img100()
     }else{
         imgnot100()

@@ -22,12 +22,10 @@ import com.opapruebas.pruebastodoapi.viewmodel.TareaViewModelAbstract
 @Composable
 fun Dialogoedit(
 tareatitulo:MutableState<String>,
-tareadescripcion:MutableState<String>,
 dimiss:()->Unit,
-save:(String,String)->Unit
+save:(String)->Unit
 ){
     val titulo = rememberSaveable { mutableStateOf(tareatitulo.value)}
-    var descripcion = rememberSaveable { mutableStateOf(tareadescripcion.value)}
     Dialog(onDismissRequest = {dimiss()}) {
         Surface(
             modifier = Modifier
@@ -71,17 +69,6 @@ save:(String,String)->Unit
                        }
 
                        Spacer(modifier = Modifier.height(15.dp))
-                       Row() {
-                           OutlinedTextField(
-                               value = descripcion.value,
-                               onValueChange = {
-                                   descripcion.value = it
-                               },
-                               label = { Text(text = "Descripcion") },
-                               maxLines = 2,
-                               modifier = Modifier.weight(1f)
-                           )
-                       }
 
                    }
                     Spacer(modifier = Modifier.height(20.dp))
@@ -94,7 +81,7 @@ save:(String,String)->Unit
                         Spacer(modifier = Modifier.width(20.dp))
                         Button(onClick = {
                             dimiss()
-                            save(titulo.value, descripcion.value)
+                            save(titulo.value)
                         }, modifier = Modifier
                             .width(80.dp)
                             .weight(0.5f)) {
@@ -112,11 +99,9 @@ save:(String,String)->Unit
 @Composable
 fun progressdialog(
     tareatitulo:String,
-    tareaprogress:Float,
     dimiss:()->Unit,
-    save:(Int)->Unit
+    save:()->Unit
 ) {
-    val progreso = rememberSaveable { mutableStateOf(tareaprogress) }
 
     Dialog(onDismissRequest = { dimiss() }) {
         Surface(
@@ -142,27 +127,6 @@ fun progressdialog(
                             color = MaterialTheme.colors.primary,
                         )
                         Spacer(modifier = Modifier.height(20.dp))
-                        Box(contentAlignment = Alignment.Center) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Slider(
-                                    value = progreso.value,
-                                    valueRange = 0f..100f,
-                                    onValueChange = {
-                                        progreso.value = it
-                                    },
-                                    modifier = Modifier
-                                        .padding(end = 20.dp)
-                                        .weight(0.9f)
-                                )
-                                val progress = progreso.value.toInt().toString()
-                                Text(
-                                    text = "$progress%", maxLines = 1,
-                                    modifier = Modifier
-                                        .weight(0.1f)
-                                )
-                            }
-                        }
-
                     }
                     Row(modifier = Modifier.padding(start = 20.dp, top = 20.dp)) {
                         Button(onClick = { dimiss() }, modifier = Modifier
@@ -173,7 +137,7 @@ fun progressdialog(
                         Spacer(modifier = Modifier.width(20.dp))
                         Button(onClick = {
                             dimiss()
-                            save(progreso.value.toInt())
+                            save()
                         }, modifier = Modifier
                             .width(80.dp)
                             .weight(0.5f)) {
