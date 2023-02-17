@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -14,7 +15,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -104,7 +107,27 @@ index->
                 .padding(vertical = 15.dp, horizontal = 10.dp)) {
                 Text( fontSize = 40.sp,text = Personajes[index].name, color = Color.Cyan)
                 Spacer(modifier = Modifier.height(5.dp))
-                Text(text = Personajes[index].specie)
+                Row() {
+                    Box() {
+                        val colorbox:Color
+                        if (pj.status == "Alive"){
+                            colorbox = MaterialTheme.colors.onSecondary
+                        }else if(pj.status == "Dead"){
+                            colorbox = MaterialTheme.colors.secondary
+                        }else{
+                            colorbox = Color.Gray
+                        }
+                        Box(modifier = Modifier
+                            .size(10.dp)
+                            .clip(CircleShape)
+                            .background(colorbox)
+                            .align(Alignment.CenterStart))
+                        Spacer(modifier = Modifier.width(50.dp))
+                        Text(text = Personajes[index].status, fontSize = 20.sp, modifier = Modifier.align(Alignment.CenterEnd))
+                    }
+
+                }
+
             }
         }
     }

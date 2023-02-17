@@ -48,7 +48,7 @@ fun todobar(navController: NavController,homeViewModel:TareaViewModelAbstract){
                 Row(modifier = Modifier.padding(top = 15.dp)) {
                     Column(modifier = Modifier.weight(0.8f)) {
                         Box(modifier = Modifier.fillMaxWidth()) {
-                            Text(text = "TO_DO",fontSize = 50.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(alignment = Alignment.Center), color = Color.White)
+                            Text(text = "TO-DO",fontSize = 50.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(alignment = Alignment.Center), color = Color.White)
                         }
                     }
 
@@ -85,7 +85,9 @@ fun content(homeViewModel:TareaViewModelAbstract){
         items(TareasListState.value.size){
             index ->
             val tareas = TareasListState.value[index]
-                Card(elevation = 5.dp, shape = RoundedCornerShape(20.dp), modifier = Modifier.padding(horizontal = 30.dp)) {
+                Card(elevation = 5.dp,
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.padding(horizontal = 30.dp)) {
                     tareatextos(titulo = tareas.Titulo , progreso = tareas.Progreso , id = tareas.id ,homeViewModel )
             }
             Spacer(modifier = Modifier.height(15.dp))

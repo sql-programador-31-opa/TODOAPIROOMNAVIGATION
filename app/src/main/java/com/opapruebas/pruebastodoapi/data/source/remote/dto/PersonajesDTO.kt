@@ -13,7 +13,9 @@ fun PersonajesDTO.toListPersonajes():List<Personajes>{
             id = entries.id,
             name = entries.name,
             specie = entries.species,
+            status = entries.status,
             img = entries.image
+
         )
     }
     return resultEntries
